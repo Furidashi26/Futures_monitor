@@ -1,0 +1,37 @@
+<html>
+    <head>
+        <title>Coinview</title>
+        <script src="https://unpkg.com/lightweight-charts/dist/lightweight-charts.standalone.production.js"></script>
+        <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}" type="text/css"/>
+    </head>
+    <body>
+        <div id="change_interval">
+            <form action="/change_tf" method="POST" id="change_tf" name="change_tf" class="change_tf">
+                <select name="interval_select" id="interval_select">
+			<option value="15m">15 minutes TF</option>
+                    <option value="5m">5 minutes TF</option>
+                    <option value="1m">1 minute TF</option>
+                    <option value="30m">30 minutes TF</option>
+                    <option value="1h">1 hour TF</option>
+                    <option value="4h">4 hours TF</option>
+                    <option value="1d">1 day TF</option>
+                </select>
+            </form>
+        </div>
+        {% for item in symbols +%}
+        <div class="chart_container">
+            <table>
+                <tr>
+                    <td>{{ item }}</td>
+                </tr>
+                <tr>
+                    <td><div class="chart" id="{{ item }}"></div></td>
+
+                </tr>
+            </table>
+        </div>
+        {% endfor %}
+        <script src="{{url_for('static', filename='chart.js')}}"></script>
+<!--        <script src="{{url_for('static', filename='chart2.js')}}"></script>-->
+    </body>
+</html>

@@ -1,0 +1,36 @@
+body {
+    background-color: #272822;
+    color: #60d1ea;
+    font-family: 'Ubuntu', 'Lucida Grande', 'Lucida Sans Unicode', 'Geneva', 'Verdana', sans-serif;
+}
+.tv-lightweight-charts {
+    display: inline;
+    overflow: visible;
+    margin-bottom: 10px;
+    padding: 0px;
+}
+
+.chart {
+    display: inline;
+    margin-bottom: 10px;
+    padding: 0px;
+}
+
+.tv-lightweight-charts>table {
+    display: inline;
+    margin-bottom: 10px;
+    padding: 0px;
+
+}
+
+.chart_container {
+    display: inline;
+    padding: 3px;
+    background-color: #272822;
+
+}
+
+.chart_container>table {
+    display: inline;
+    background-color: #272822;
+}
