@@ -20,12 +20,12 @@ def index():
 
 @app.route("/history")
 def history():
-    return jsonify(chart.get_history_array())
+	return jsonify(chart.get_history_array())
 
 @app.route("/testing")
 def testing():
-    symbols = chart.get_symbols()
-    return render_template('index.html', symbols=symbols)
+	symbols = chart.get_symbols()
+	return render_template('index.html', symbols=symbols)
 
 if __name__ == "__main__":
 	app.run(host='0.0.0.0')
