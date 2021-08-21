@@ -1,11 +1,13 @@
 <html>
     <head>
+
         <title>Coinview</title>
         <script src="https://unpkg.com/lightweight-charts/dist/lightweight-charts.standalone.production.js"></script>
         <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}" type="text/css"/>
+        <div id="sym" data-sym="{{ symbols }}"></div>
     </head>
     <body>
-        <div id="change_interval">
+        <div id="change_items">
             <form action="/change_tf" method="POST" id="change_tf" name="change_tf" class="change_tf">
                 <select name="interval_select" id="interval_select">
 			<option value="15m">15 minutes TF</option>
@@ -17,8 +19,14 @@
                     <option value="1d">1 day TF</option>
                 </select>
             </form>
+            <button id="all-btn" onclick='window.location.href="/";'>All</button>
+            <button id="3-btn" onclick='window.location.href="/three";'>0 - 3 USDT</button>
+            <button id="10-btn" onclick='window.location.href="/ten";'>3 - 10 USDT</button>
+            <button id="50-btn" onclick='window.location.href="/fifty";'>10 - 50 USDT</button>
+            <span>&nbspPrice interval: {{ label }}</span>
         </div>
-        {% for item in symbols +%}
+        <div>&nbsp</div>
+        {% for item in symbols_arr +%}
         <div class="chart_container">
             <table>
                 <tr>

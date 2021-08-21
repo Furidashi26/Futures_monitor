@@ -34,3 +34,15 @@ body {
     display: inline;
     background-color: #272822;
 }
+
+.change_p {
+    display: inline;
+}
+
+.change_tf {
+    display: inline;
+}
+
+hr {
+    color: #60d1ea;
+}

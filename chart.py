@@ -1,3 +1,5 @@
+import json
+
 from binance import Client, ThreadedWebsocketManager, ThreadedDepthCacheManager
 import config
 import requests
@@ -23,16 +25,25 @@ def fetch_last_history(symbol):
     # #print(processed_candlesticks)
     # return processed_candlesticks[:-1]
 
-def get_symbols():
-    symbols_list = []
-    r = requests.get('https://fapi.binance.com/fapi/v1/exchangeInfo')
-    result = r.json()['symbols']
-    for item in result:
-        if item['symbol'][-1] != 'T':
+def get_symbols(start_price, end_price):
+    symbols_list = ["BTCUSDT"]
+    req = requests.get('https://fapi.binance.com/fapi/v1/ticker/24hr')
+    req = req.json()
+    # r = requests.get('https://fapi.binance.com/fapi/v1/exchangeInfo')
+    # result = r.json()["symbols"]
+    for item in req:
+        if item["symbol"][-1] != "T":
             continue
-        symbols_list.append(item['symbol'])
-    #print(symbols_list)
-    return symbols_list
+        if item["symbol"] == "BTCUSDT":
+            continue
+        if float(item["lastPrice"]) < float(start_price) or float(item["lastPrice"]) > float(end_price):
+            continue
+
+        symbols_list.append(item["symbol"])
+
+    print(symbols_list)
+    json_symbols = json.dumps(symbols_list)
+    return json_symbols
 
 def get_history_array():
     history_array = []
@@ -47,6 +58,7 @@ def get_history_array():
         })
     print(history_array)
     return history_array
+get_symbols(3,10)
 
 
 
