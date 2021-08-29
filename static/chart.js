@@ -1,7 +1,8 @@
 var interval_form = document.getElementById('change_tf')
 interval = interval_form.interval_select.value;
 limit = 1000
-
+var market = document.getElementById('market').dataset.market
+console.log(market)
 var symbols = document.getElementById('sym').dataset.sym
 symbols = JSON.parse(symbols)
 
@@ -47,7 +48,12 @@ function create_chart(element_id, interval, limit) {
 	// 	})
 	//console.log(interval)
 	var history_klines = []
-	history_url = 'https://fapi.binance.com/fapi/v1/klines?symbol='+element_id+'&interval='+interval+'&limit='+limit
+	if (market == 'F') {
+		history_url = 'https://fapi.binance.com/fapi/v1/klines?symbol='+element_id+'&interval='+interval+'&limit='+limit
+	}
+	else {
+		history_url = 'https://api.binance.com/api/v3/klines?symbol='+element_id+'&interval='+interval+'&limit='+limit
+	}
 
 	fetch(history_url)
 		.then((r) => r.json())
@@ -65,8 +71,13 @@ function create_chart(element_id, interval, limit) {
 			candleSeries.setData(history_klines)
 		})
 
+	if (market == 'F') {
+		var stream_url = 'wss://fstream.binance.com/ws/' + element_id.toLowerCase() + '@kline_' + interval
+	}
+	else {
+		var stream_url = 'wss://stream.binance.com:9443/ws/' + element_id.toLowerCase() + '@kline_' + interval
+	}
 
-	var stream_url = 'wss://fstream.binance.com/ws/' + element_id.toLowerCase() + '@kline_' + interval
 	var binanceSocket = new WebSocket(stream_url)
 
 	binanceSocket.onmessage = function (event) {
@@ -96,7 +107,7 @@ function create_chart(element_id, interval, limit) {
 
 
 for (item in symbols) {
-	console.log(symbols[item])
+	//console.log(symbols[item])
 	create_chart(symbols[item], interval, limit)
 }
 

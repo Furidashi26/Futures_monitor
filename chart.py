@@ -40,8 +40,26 @@ def get_symbols(start_price, end_price):
             continue
 
         symbols_list.append(item["symbol"])
+    json_symbols = json.dumps(symbols_list)
+    print(json_symbols)
+    return json_symbols
 
-    print(symbols_list)
+def get_symbols_spot(start_price, end_price):
+    symbols_list = ["BTCUSDT"]
+    req = requests.get('https://api.binance.com/api/v3/ticker/24hr')
+    req = req.json()
+    # r = requests.get('https://api.binance.com/api/v3/exchangeInfo')
+    # result = r.json()["symbols"]
+    for item in req:
+        if item["symbol"][-1] != "T":
+            continue
+        if item["symbol"] == "BTCUSDT":
+            continue
+        if float(item["lastPrice"]) < float(start_price) or float(item["lastPrice"]) > float(end_price):
+            continue
+
+        symbols_list.append(item["symbol"])
+
     json_symbols = json.dumps(symbols_list)
     return json_symbols
 
@@ -58,7 +76,7 @@ def get_history_array():
         })
     print(history_array)
     return history_array
-get_symbols(3,10)
+get_symbols(0, 999999)
 
 
 

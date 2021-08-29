@@ -18,7 +18,8 @@ def index():
 	int = interval
 	symbols = chart.get_symbols(0, 999999)
 	symbols_arr = json.loads(symbols)
-	return render_template('index.html', symbols=symbols, symbols_arr=symbols_arr, label='All symbols')
+	symbols_count = len(symbols_arr)
+	return render_template('index.html', symbols=symbols, symbols_arr=symbols_arr, label='All symbols', market='F', symbols_count=symbols_count)
 
 @app.route("/three")
 def three():
@@ -26,7 +27,7 @@ def three():
 	int = interval
 	symbols = chart.get_symbols(0, 3)
 	symbols_arr = json.loads(symbols)
-	return render_template('index.html', symbols=symbols, symbols_arr=symbols_arr, label='0 - 3 USDT')
+	return render_template('index.html', symbols=symbols, symbols_arr=symbols_arr, label='0 - 3 USDT', market='F')
 
 @app.route("/ten")
 def ten():
@@ -34,7 +35,7 @@ def ten():
 	int = interval
 	symbols = chart.get_symbols(3, 10)
 	symbols_arr = json.loads(symbols)
-	return render_template('index.html', symbols=symbols, symbols_arr=symbols_arr, label='3 - 10 USDT')
+	return render_template('index.html', symbols=symbols, symbols_arr=symbols_arr, label='3 - 10 USDT', market='F')
 
 @app.route("/fifty")
 def fifty():
@@ -42,7 +43,15 @@ def fifty():
 	int = interval
 	symbols = chart.get_symbols(10, 50)
 	symbols_arr = json.loads(symbols)
-	return render_template('index.html', symbols=symbols, symbols_arr=symbols_arr, label='10 - 50 USDT')
+	return render_template('index.html', symbols=symbols, symbols_arr=symbols_arr, label='10 - 50 USDT', market='F')
+
+@app.route("/spot")
+def spot():
+	global interval
+	int = interval
+	symbols = chart.get_symbols_spot(0, 999999)
+	symbols_arr = json.loads(symbols)
+	return render_template('index.html', symbols=symbols, symbols_arr=symbols_arr, label='All spot', market='S')
 
 @app.route("/history")
 def history():

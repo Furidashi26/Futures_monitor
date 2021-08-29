@@ -5,6 +5,7 @@
         <script src="https://unpkg.com/lightweight-charts/dist/lightweight-charts.standalone.production.js"></script>
         <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}" type="text/css"/>
         <div id="sym" data-sym="{{ symbols }}"></div>
+        <div id="market" data-market="{{ market }}"></div>
     </head>
     <body>
         <div id="change_items">
@@ -19,11 +20,13 @@
                     <option value="1d">1 day TF</option>
                 </select>
             </form>
+            <button id="spot-btn" onclick='window.location.href="/spot";'>Spot</button>
             <button id="all-btn" onclick='window.location.href="/";'>All</button>
             <button id="3-btn" onclick='window.location.href="/three";'>0 - 3 USDT</button>
             <button id="10-btn" onclick='window.location.href="/ten";'>3 - 10 USDT</button>
             <button id="50-btn" onclick='window.location.href="/fifty";'>10 - 50 USDT</button>
             <span>&nbspPrice interval: {{ label }}</span>
+            <span>&nbsp| Symbols count:&nbsp{{ symbols_count }}</span>
         </div>
         <div>&nbsp</div>
         {% for item in symbols_arr +%}
